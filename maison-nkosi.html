@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAISON NKOSI — Luxury Streetwear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --black:#0C0C0C;
+  --surface:#1C1C1C;
+  --surface2:#242424;
+  --gold:#B8955A;
+  --gold-light:#D4B07A;
+  --linen:#F7F2EB;
+  --linen2:#EDE8E0;
+  --muted:#4A4A4A;
+  --border:rgba(184,149,90,0.18);
+  --white:#FFFFFF;
+}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--linen);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+.cur{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s,background .2s}
+.cur-r{width:32px;height:32px;border:1px solid rgba(184,149,90,.35);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .08s,top .08s,width .25s,height .25s}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 4rem;background:rgba(12,12,12,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--linen);text-decoration:none}
+.nav-logo em{color:var(--gold);font-style:normal}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--gold)}
+.nav-right{display:flex;align-items:center;gap:1.5rem}
+.cart-btn{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--linen);background:none;border:1px solid var(--border);padding:8px 18px;cursor:none;transition:all .2s;position:relative}
+.cart-btn:hover{border-color:var(--gold);color:var(--gold)}
+.cart-count{position:absolute;top:-6px;right:-6px;background:var(--gold);color:var(--black);font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+/* HERO */
+.hero{height:100vh;display:grid;grid-template-columns:1fr 1fr;padding-top:68px}
+.hero-text{display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem;position:relative}
+.hero-text::after{content:'';position:absolute;right:0;top:10%;bottom:10%;width:1px;background:linear-gradient(to bottom,transparent,var(--gold),transparent)}
+.hero-season{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem}
+h1{font-family:'Playfair Display',serif;font-size:clamp(3.5rem,6vw,6.5rem);font-weight:900;line-height:.95;letter-spacing:-.02em;color:var(--linen);margin-bottom:2rem}
+h1 i{font-style:italic;color:var(--gold);display:block}
+.hero-desc{font-size:14px;font-weight:300;color:var(--muted);line-height:1.85;max-width:360px;margin-bottom:3rem}
+.hero-ctas{display:flex;gap:1rem;align-items:center}
+.btn-gold{background:var(--gold);color:var(--black);font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:14px 32px;text-decoration:none;display:inline-block;transition:background .2s,transform .15s;border:none;cursor:none}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-1px)}
+.btn-ghost{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s;background:none;border:none;cursor:none}
+.btn-ghost:hover{color:var(--linen)}
+.btn-ghost::after{content:'→'}
+.hero-img{position:relative;overflow:hidden;background:var(--surface)}
+.hero-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.8) saturate(.9)}
+.hero-img-overlay{position:absolute;inset:0;background:linear-gradient(to right,var(--black) 0%,transparent 30%)}
+.hero-tag{position:absolute;bottom:3rem;right:3rem;background:rgba(12,12,12,.8);backdrop-filter:blur(12px);border:1px solid var(--border);padding:1.2rem 1.6rem}
+.hero-tag-l{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.hero-tag-v{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--gold)}
+
+/* TICKER */
+.ticker-wrap{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);height:38px;overflow:hidden;display:flex;align-items:center}
+.ticker-track{display:flex;white-space:nowrap;animation:tick 25s linear infinite}
+.ticker-track span{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding-right:3rem}
+.ticker-track span.g{color:var(--gold)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SECTION SHARED */
+section{padding:8rem 4rem}
+.sec-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:10px}
+.sec-label::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:700;line-height:1.1;letter-spacing:-.01em}
+h2 i{font-style:italic;color:var(--gold)}
+
+/* PRODUCTS */
+.products-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.product-card{background:var(--black);position:relative;overflow:hidden;cursor:none}
+.product-img{aspect-ratio:3/4;overflow:hidden;background:var(--surface);position:relative;display:flex;align-items:center;justify-content:center}
+.product-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.85) saturate(.8);transition:filter .5s,transform .6s}
+.product-card:hover .product-img img{filter:brightness(.95) saturate(1);transform:scale(1.04)}
+.product-badge{position:absolute;top:1rem;left:1rem;background:var(--gold);color:var(--black);font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:3px 8px;z-index:2}
+.product-badge.new{background:var(--linen);color:var(--black)}
+.product-add{position:absolute;bottom:0;left:0;right:0;background:var(--gold);color:var(--black);font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:12px;text-align:center;transform:translateY(100%);transition:transform .3s;border:none;cursor:none}
+.product-card:hover .product-add{transform:translateY(0)}
+.product-info{padding:1.4rem 1.2rem 1.8rem;border-top:1px solid var(--border)}
+.product-brand{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.product-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--linen);margin-bottom:.75rem}
+.product-price{font-family:'Space Mono',monospace;font-size:1rem;color:var(--gold)}
+.product-price del{color:var(--muted);font-size:.8rem;margin-left:6px}
+
+/* SPLIT EDITORIAL */
+.editorial{display:grid;grid-template-columns:1fr 1fr}
+.ed-img{position:relative;min-height:600px;overflow:hidden;background:var(--surface)}
+.ed-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.7) saturate(.85)}
+.ed-content{background:var(--linen);color:var(--black);padding:6rem 4rem;display:flex;flex-direction:column;justify-content:center}
+.ed-content .sec-label{color:var(--gold)}
+.ed-content .sec-label::before{background:var(--gold)}
+.ed-content h2{color:var(--black);margin-bottom:1.5rem}
+.ed-body{font-size:14px;font-weight:300;color:#555;line-height:1.9;margin-bottom:2.5rem}
+.ed-pills{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2.5rem}
+.pill{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(0,0,0,.2);color:var(--black);padding:5px 14px}
+
+/* MARQUEE */
+.marquee-sec{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.4rem 0;overflow:hidden;background:var(--black)}
+.marq-track{display:flex;white-space:nowrap;animation:marq 35s linear infinite}
+.marq-item{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:1px #2a2a2a;padding-right:2.5rem}
+.marq-item.a{-webkit-text-stroke:1px var(--gold);color:var(--gold)}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* STATEMENT */
+.statement{text-align:center;padding:10rem 4rem;position:relative;overflow:hidden}
+.statement::before{content:'NKOSI';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Playfair Display',serif;font-size:clamp(10rem,22vw,20rem);font-weight:900;color:transparent;-webkit-text-stroke:1px #1a1a1a;letter-spacing:-.05em;text-transform:uppercase;pointer-events:none;user-select:none;white-space:nowrap}
+.statement-text{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.6rem);font-weight:400;font-style:italic;color:var(--linen);max-width:750px;margin:0 auto;line-height:1.5;position:relative;z-index:2}
+.statement-text em{font-style:normal;color:var(--gold);font-weight:700}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:4rem}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border)}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--linen);margin-bottom:.75rem}
+.footer-brand em{color:var(--gold);font-style:normal}
+.footer-desc{font-size:12px;color:var(--muted);line-height:1.8;max-width:240px;font-weight:300}
+.footer-col h4{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.6rem}
+.footer-col ul a{font-size:12px;color:var(--linen);text-decoration:none;transition:color .2s;font-weight:300}
+.footer-col ul a:hover{color:var(--gold)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem}
+.footer-copy{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}
+.reveal.up{opacity:1;transform:none}
+
+/* ── CART DRAWER ── */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:800;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(4px)}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;right:0;top:0;bottom:0;width:420px;background:var(--surface);z-index:900;transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;border-left:1px solid var(--border)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 2rem;border-bottom:1px solid var(--border)}
+.cart-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;letter-spacing:.05em}
+.cart-close{background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:none;transition:color .2s}
+.cart-close:hover{color:var(--linen)}
+.cart-items{flex:1;overflow-y:auto;padding:1.5rem 2rem}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1rem;color:var(--muted)}
+.cart-empty-icon{font-size:2.5rem;opacity:.3}
+.cart-empty-text{font-size:13px;letter-spacing:.05em}
+.cart-item{display:grid;grid-template-columns:70px 1fr auto;gap:1rem;align-items:center;padding:1.2rem 0;border-bottom:1px solid var(--border)}
+.cart-item-img{width:70px;height:85px;object-fit:cover;background:var(--surface2)}
+.cart-item-name{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--linen);margin-bottom:4px}
+.cart-item-variant{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.cart-item-qty{display:flex;align-items:center;gap:8px;margin-top:8px}
+.qty-btn{width:22px;height:22px;background:var(--surface2);border:1px solid var(--border);color:var(--linen);font-size:12px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all .2s}
+.qty-btn:hover{background:var(--gold);color:var(--black);border-color:var(--gold)}
+.qty-n{font-family:'Space Mono',monospace;font-size:12px;min-width:20px;text-align:center}
+.cart-item-price{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--gold);white-space:nowrap}
+.cart-remove{background:none;border:none;color:var(--muted);font-size:14px;cursor:none;transition:color .2s;display:block;margin-top:4px;text-align:right}
+.cart-remove:hover{color:var(--gold)}
+.cart-footer{padding:1.5rem 2rem;border-top:1px solid var(--border)}
+.cart-subtotal{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+.cart-subtotal-l{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.cart-subtotal-v{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:var(--linen)}
+.checkout-btn{width:100%;background:var(--gold);color:var(--black);font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:16px;border:none;cursor:none;transition:background .2s;margin-bottom:.75rem}
+.checkout-btn:hover{background:var(--gold-light)}
+.continue-btn{width:100%;background:none;border:1px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:12px;cursor:none;transition:all .2s}
+.continue-btn:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── CHECKOUT MODAL ── */
+.checkout-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center}
+.checkout-overlay.open{opacity:1;pointer-events:all}
+.checkout-modal{background:var(--surface);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;position:relative}
+.checkout-modal::-webkit-scrollbar{width:4px}
+.checkout-modal::-webkit-scrollbar-track{background:var(--surface)}
+.checkout-modal::-webkit-scrollbar-thumb{background:var(--border)}
+.co-header{padding:2rem 2.5rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.co-title{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;letter-spacing:.05em}
+.co-close{background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:none;transition:color .2s}
+.co-close:hover{color:var(--linen)}
+.co-body{padding:2rem 2.5rem}
+.co-section{margin-bottom:2rem}
+.co-section-title{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:8px}
+.co-section-title::before{content:'';display:block;width:16px;height:1px;background:var(--gold)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-row.full{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.form-group input,.form-group select{background:var(--surface2);border:1px solid var(--border);color:var(--linen);font-family:'Space Grotesk',sans-serif;font-size:13px;padding:11px 14px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.form-group input::placeholder{color:var(--muted)}
+.form-group input:focus,.form-group select:focus{border-color:var(--gold)}
+.form-group select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234A4A4A'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.form-group select option{background:var(--surface2);color:var(--linen)}
+
+/* Payment tabs */
+.pay-tabs{display:flex;gap:1px;background:var(--border);margin-bottom:1.5rem}
+.pay-tab{flex:1;padding:11px;background:var(--surface2);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border:none;cursor:none;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
+.pay-tab.active{background:var(--gold);color:var(--black)}
+.pay-tab:hover:not(.active){color:var(--linen);background:var(--surface)}
+.pay-icon{font-size:14px}
+.pay-panel{display:none}
+.pay-panel.active{display:block}
+.card-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.card-icons{display:flex;gap:.5rem;margin-bottom:1rem}
+.card-icon{height:24px;background:var(--surface2);border:1px solid var(--border);padding:3px 8px;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);display:flex;align-items:center}
+
+/* M-Pesa */
+.mpesa-brand{display:flex;align-items:center;gap:.75rem;padding:1rem 1.2rem;background:var(--surface2);border:1px solid var(--border);margin-bottom:1.25rem}
+.mpesa-logo{background:#00a550;color:#fff;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;padding:4px 10px}
+.mpesa-note{font-size:12px;color:var(--muted);line-height:1.6}
+.mpesa-steps{display:flex;flex-direction:column;gap:.5rem;margin-top:1rem}
+.mpesa-step{display:flex;align-items:flex-start;gap:.75rem;font-size:12px;color:var(--muted)}
+.step-num{background:var(--gold);color:var(--black);font-family:'Space Mono',monospace;font-size:9px;font-weight:700;width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+
+/* PayPal */
+.paypal-btn{width:100%;background:#003087;color:#fff;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:14px;border:none;cursor:none;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:.75rem}
+.paypal-btn:hover{background:#001f5c}
+.paypal-logo{font-size:1.1rem;font-style:italic;font-weight:700;font-family:Arial,sans-serif}
+.paypal-logo span{color:#009cde}
+
+/* Order summary */
+.order-summary{background:var(--surface2);border:1px solid var(--border);padding:1.5rem;margin-bottom:1.5rem}
+.order-line{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.order-line:last-child{margin-bottom:0}
+.order-line-label{font-size:12px;color:var(--muted)}
+.order-line-val{font-family:'Space Mono',monospace;font-size:12px;color:var(--linen)}
+.order-divider{border:none;border-top:1px solid var(--border);margin:.75rem 0}
+.order-total-label{font-size:13px;font-weight:500;color:var(--linen)}
+.order-total-val{font-family:'Space Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--gold)}
+.co-submit{width:100%;background:var(--gold);color:var(--black);font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;padding:17px;border:none;cursor:none;transition:background .2s}
+.co-submit:hover{background:var(--gold-light)}
+.secure-note{display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.75rem;font-size:10px;color:var(--muted);letter-spacing:.08em}
+
+/* SUCCESS */
+.success-screen{display:none;flex-direction:column;align-items:center;justify-content:center;padding:4rem 2.5rem;text-align:center}
+.success-screen.show{display:flex}
+.success-icon{font-size:3.5rem;margin-bottom:1.5rem}
+.success-title{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--linen);margin-bottom:.75rem}
+.success-sub{font-size:13px;color:var(--muted);line-height:1.7;max-width:300px;margin-bottom:2rem}
+.order-ref{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--gold);background:var(--surface2);border:1px solid var(--border);padding:10px 20px;margin-bottom:2rem}
+
+@media(max-width:900px){
+  nav{padding:0 1.5rem} .nav-links{display:none}
+  .hero{grid-template-columns:1fr} .hero-img{min-height:40vw} h1{font-size:3rem}
+  section{padding:5rem 1.5rem}
+  .products-grid{grid-template-columns:1fr 1fr}
+  .editorial{grid-template-columns:1fr}
+  footer{padding:3rem 1.5rem} .footer-top{grid-template-columns:1fr 1fr}
+  .cart-drawer{width:100%}
+  .checkout-modal{max-width:100%;margin:1rem;max-height:95vh}
+  .form-row{grid-template-columns:1fr}
+  .products-hd{flex-direction:column;align-items:flex-start;gap:1rem}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="cur-r"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">MAISON <em>NKOSI</em></a>
+  <ul class="nav-links">
+    <li><a href="#shop">Collection</a></li>
+    <li><a href="#about">House</a></li>
+    <li><a href="#">Lookbook</a></li>
+    <li><a href="#">Archive</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" id="cart-open-btn">
+      Bag
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-season">SS 2026 — Limited Edition</div>
+    <h1>Dressed<br>for the<br><i>streets.</i></h1>
+    <p class="hero-desc">Where couture discipline meets urban defiance. Every piece is numbered, every stitch deliberate. This is luxury without apology.</p>
+    <div class="hero-ctas">
+      <a href="#shop" class="btn-gold">Shop the Drop</a>
+      <a href="#about" class="btn-ghost">Our House</a>
+    </div>
+  </div>
+  <div class="hero-img">
+    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=900&auto=format&fit=crop&q=85" alt="Luxury streetwear model">
+    <div class="hero-img-overlay"></div>
+    <div class="hero-tag">
+      <div class="hero-tag-l">Starting from</div>
+      <div class="hero-tag-v">KES 12,500</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span>SS26 Now Live</span><span class="g">✦</span>
+    <span>Free Shipping on Orders Over KES 20,000</span><span class="g">✦</span>
+    <span>Limited to 200 Units Worldwide</span><span class="g">✦</span>
+    <span>Maison Nkosi — Est. Nairobi MMXIX</span><span class="g">✦</span>
+    <span>SS26 Now Live</span><span class="g">✦</span>
+    <span>Free Shipping on Orders Over KES 20,000</span><span class="g">✦</span>
+    <span>Limited to 200 Units Worldwide</span><span class="g">✦</span>
+    <span>Maison Nkosi — Est. Nairobi MMXIX</span><span class="g">✦</span>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="shop">
+  <div class="products-hd reveal">
+    <div>
+      <div class="sec-label">SS26 Drop</div>
+      <h2>The <i>Collection</i></h2>
+    </div>
+    <a href="#" class="btn-ghost">View all pieces</a>
+  </div>
+  <div class="products-grid reveal">
+
+    <div class="product-card">
+      <div class="product-img">
+        <span class="product-badge new">New</span>
+        <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=600&auto=format&fit=crop&q=80" alt="Phantom Overcoat">
+        <button class="product-add" onclick="addToCart('Phantom Overcoat','KES 38,500',38500,'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=120&auto=format&fit=crop')">Add to Bag</button>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Maison Nkosi</div>
+        <div class="product-name">Phantom Overcoat</div>
+        <div class="product-price">KES 38,500</div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1594938298603-c8148f4851ce?w=600&auto=format&fit=crop&q=80" alt="Void Hoodie">
+        <button class="product-add" onclick="addToCart('Void Hoodie','KES 18,000',18000,'https://images.unsplash.com/photo-1594938298603-c8148f4851ce?w=120&auto=format&fit=crop')">Add to Bag</button>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Maison Nkosi</div>
+        <div class="product-name">Void Hoodie</div>
+        <div class="product-price">KES 18,000 <del>KES 24,000</del></div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <span class="product-badge">Last 3</span>
+        <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&auto=format&fit=crop&q=80" alt="Archive Cargo Pants">
+        <button class="product-add" onclick="addToCart('Archive Cargo Pants','KES 22,500',22500,'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=120&auto=format&fit=crop')">Add to Bag</button>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Maison Nkosi</div>
+        <div class="product-name">Archive Cargo Pants</div>
+        <div class="product-price">KES 22,500</div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <span class="product-badge new">New</span>
+        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&auto=format&fit=crop&q=80" alt="Silk Bomber">
+        <button class="product-add" onclick="addToCart('Silk Bomber','KES 45,000',45000,'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=120&auto=format&fit=crop')">Add to Bag</button>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Maison Nkosi</div>
+        <div class="product-name">Silk Bomber</div>
+        <div class="product-price">KES 45,000</div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=600&auto=format&fit=crop&q=80" alt="Cropped Blazer">
+        <button class="product-add" onclick="addToCart('Cropped Blazer','KES 28,000',28000,'https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=120&auto=format&fit=crop')">Add to Bag</button>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Maison Nkosi</div>
+        <div class="product-name">Cropped Blazer</div>
+        <div class="product-price">KES 28,000</div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=600&auto=format&fit=crop&q=80" alt="Utility Vest">
+        <button class="product-add" onclick="addToCart('Utility Vest','KES 12,500',12500,'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=120&auto=format&fit=crop')">Add to Bag</button>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">Maison Nkosi</div>
+        <div class="product-name">Utility Vest</div>
+        <div class="product-price">KES 12,500</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-sec">
+  <div class="marq-track">
+    <span class="marq-item">Maison Nkosi</span><span class="marq-item a">✦</span>
+    <span class="marq-item">Luxury</span><span class="marq-item">Streetwear</span>
+    <span class="marq-item a">✦</span><span class="marq-item">SS26</span>
+    <span class="marq-item">Nairobi</span><span class="marq-item a">✦</span>
+    <span class="marq-item">Maison Nkosi</span><span class="marq-item a">✦</span>
+    <span class="marq-item">Luxury</span><span class="marq-item">Streetwear</span>
+    <span class="marq-item a">✦</span><span class="marq-item">SS26</span>
+    <span class="marq-item">Nairobi</span><span class="marq-item a">✦</span>
+  </div>
+</div>
+
+<!-- EDITORIAL -->
+<section class="editorial" id="about">
+  <div class="ed-img">
+    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&auto=format&fit=crop&q=85" alt="The House of Nkosi">
+  </div>
+  <div class="ed-content">
+    <div class="sec-label reveal">The House</div>
+    <h2 class="reveal">Built on the <i>streets,</i><br>raised to the<br>highest standard.</h2>
+    <p class="ed-body reveal">Maison Nkosi began in a Nairobi backroom in 2019 — a single sewing machine and an obsession with making clothes that could survive the city without surrendering their beauty. We don't make fashion. We make armour for the culture.</p>
+    <div class="ed-pills reveal">
+      <span class="pill">Limited Production</span>
+      <span class="pill">Nairobi Crafted</span>
+      <span class="pill">Sustainable Fabrics</span>
+      <span class="pill">Numbered Pieces</span>
+    </div>
+    <a href="#shop" class="btn-gold reveal">Shop Now</a>
+  </div>
+</section>
+
+<!-- STATEMENT -->
+<section class="statement">
+  <p class="statement-text reveal">We don't design for <em>occasions.</em> We design for the city that never asked permission — and never needed to.</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">MAISON <em>NKOSI</em></div>
+      <p class="footer-desc">Luxury streetwear born in Nairobi. Limited production. No shortcuts. Just craft.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Outerwear</a></li>
+        <li><a href="#">Tops</a></li>
+        <li><a href="#">Bottoms</a></li>
+        <li><a href="#">Archive Sale</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>House</h4>
+      <ul>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Lookbook</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">Stockists</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Maison Nkosi. All rights reserved.</div>
+    <div style="display:flex;gap:1.5rem">
+      <a href="#" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">Instagram</a>
+      <a href="#" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">TikTok</a>
+      <a href="#" style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--muted)'">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-header">
+    <div class="cart-title">Your Bag</div>
+    <button class="cart-close" id="cart-close-btn">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items-list">
+    <div class="cart-empty">
+      <div class="cart-empty-icon">◻</div>
+      <div class="cart-empty-text">Your bag is empty</div>
+    </div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-subtotal">
+      <div class="cart-subtotal-l">Subtotal</div>
+      <div class="cart-subtotal-v" id="cart-total-display">KES 0</div>
+    </div>
+    <button class="checkout-btn" id="open-checkout-btn">Proceed to Checkout</button>
+    <button class="continue-btn" id="cart-close-btn2">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="checkout-overlay" id="checkout-overlay">
+  <div class="checkout-modal" id="checkout-modal">
+
+    <div id="checkout-form-view">
+      <div class="co-header">
+        <div class="co-title">Checkout</div>
+        <button class="co-close" id="co-close-btn">✕</button>
+      </div>
+      <div class="co-body">
+
+        <!-- Order Summary -->
+        <div class="co-section">
+          <div class="co-section-title">Order Summary</div>
+          <div class="order-summary" id="co-order-summary"></div>
+        </div>
+
+        <!-- Contact -->
+        <div class="co-section">
+          <div class="co-section-title">Contact</div>
+          <div class="form-row full">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="e.g. Amara Nkosi" id="f-name">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="your@email.com" id="f-email">
+            </div>
+            <div class="form-group">
+              <label>Phone</label>
+              <input type="tel" placeholder="+254 7XX XXX XXX" id="f-phone">
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping -->
+        <div class="co-section">
+          <div class="co-section-title">Shipping Address</div>
+          <div class="form-row full"><div class="form-group"><label>Address</label><input type="text" placeholder="Street / Estate" id="f-addr"></div></div>
+          <div class="form-row">
+            <div class="form-group"><label>City</label><input type="text" placeholder="Nairobi" id="f-city"></div>
+            <div class="form-group">
+              <label>Country</label>
+              <select id="f-country">
+                <option>Kenya</option><option>Uganda</option><option>Tanzania</option>
+                <option>Rwanda</option><option>South Africa</option><option>Nigeria</option>
+                <option>United Kingdom</option><option>United States</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="co-section">
+          <div class="co-section-title">Payment Method</div>
+
+          <div class="pay-tabs">
+            <button class="pay-tab active" onclick="switchTab('mpesa',this)">
+              <span class="pay-icon">📱</span> M-Pesa
+            </button>
+            <button class="pay-tab" onclick="switchTab('card',this)">
+              <span class="pay-icon">💳</span> Card
+            </button>
+            <button class="pay-tab" onclick="switchTab('paypal',this)">
+              <span class="pay-icon">🅿</span> PayPal
+            </button>
+          </div>
+
+          <!-- M-PESA -->
+          <div class="pay-panel active" id="panel-mpesa">
+            <div class="mpesa-brand">
+              <div class="mpesa-logo">M-PESA</div>
+              <div class="mpesa-note">Pay instantly via Safaricom M-Pesa STK push</div>
+            </div>
+            <div class="form-row full">
+              <div class="form-group">
+                <label>M-Pesa Number</label>
+                <input type="tel" placeholder="0700 000 000" id="f-mpesa">
+              </div>
+            </div>
+            <div class="mpesa-steps">
+              <div class="mpesa-step"><div class="step-num">1</div>Enter your Safaricom number above</div>
+              <div class="mpesa-step"><div class="step-num">2</div>Click Pay — you'll receive an STK push prompt</div>
+              <div class="mpesa-step"><div class="step-num">3</div>Enter your M-Pesa PIN to confirm</div>
+            </div>
+          </div>
+
+          <!-- CARD -->
+          <div class="pay-panel" id="panel-card">
+            <div class="card-icons">
+              <div class="card-icon">VISA</div>
+              <div class="card-icon">MC</div>
+              <div class="card-icon">AMEX</div>
+              <div class="card-icon">DISCOVER</div>
+            </div>
+            <div class="form-row full">
+              <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" placeholder="1234 5678 9012 3456" id="f-card" maxlength="19" oninput="fmtCard(this)">
+              </div>
+            </div>
+            <div class="card-row">
+              <div class="form-group">
+                <label>Expiry</label>
+                <input type="text" placeholder="MM / YY" id="f-exp" maxlength="7" oninput="fmtExp(this)">
+              </div>
+              <div class="form-group">
+                <label>CVV</label>
+                <input type="text" placeholder="•••" id="f-cvv" maxlength="4">
+              </div>
+            </div>
+            <div class="form-row full">
+              <div class="form-group">
+                <label>Name on Card</label>
+                <input type="text" placeholder="As it appears on card" id="f-cardname">
+              </div>
+            </div>
+          </div>
+
+          <!-- PAYPAL -->
+          <div class="pay-panel" id="panel-paypal">
+            <p style="font-size:13px;color:var(--muted);margin-bottom:1.25rem;line-height:1.7">You'll be redirected to PayPal to complete your purchase securely. No PayPal account? Pay with your debit or credit card via PayPal Guest Checkout.</p>
+            <button class="paypal-btn" onclick="placeOrder()">
+              <span class="paypal-logo">Pay<span>Pal</span></span>
+              Pay with PayPal
+            </button>
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <div id="pay-submit-wrap">
+          <button class="co-submit" onclick="placeOrder()" id="co-submit-btn">Place Order</button>
+          <div class="secure-note">🔒 Secured with 256-bit SSL encryption</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">✦</div>
+      <div class="success-title">Order Confirmed</div>
+      <p class="success-sub">Thank you. Your pieces are being prepared. You'll receive a confirmation via email and SMS shortly.</p>
+      <div class="order-ref" id="order-ref">#MN-000000</div>
+      <button class="btn-gold" onclick="closeAll()" style="cursor:none">Continue Shopping</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Cursor
+const cur = document.getElementById('cur');
+const curR = document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animR(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(animR)})();
+document.querySelectorAll('a,button,.product-card,.cart-btn').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';curR.style.width='52px';curR.style.height='52px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';curR.style.width='32px';curR.style.height='32px'});
+});
+
+// Cart state
+let cart = [];
+
+function addToCart(name, priceStr, price, img) {
+  const existing = cart.find(i=>i.name===name);
+  if (existing) existing.qty++;
+  else cart.push({name, priceStr, price, img, qty:1});
+  updateCartUI();
+  openCart();
+}
+
+function updateCartUI() {
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const count = cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cart-count').textContent = count;
+  document.getElementById('cart-total-display').textContent = 'KES ' + total.toLocaleString();
+
+  const list = document.getElementById('cart-items-list');
+  const footer = document.getElementById('cart-footer');
+
+  if (cart.length === 0) {
+    list.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">◻</div><div class="cart-empty-text">Your bag is empty</div></div>';
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  list.innerHTML = cart.map((item,i)=>`
+    <div class="cart-item">
+      <img class="cart-item-img" src="${item.img}" alt="${item.name}" onerror="this.style.background='var(--surface2)'">
+      <div>
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-item-variant">Size: M</div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty(${i},-1)">−</button>
+          <span class="qty-n">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+        </div>
+        <button class="cart-remove" onclick="removeItem(${i})">Remove</button>
+      </div>
+      <div class="cart-item-price">KES ${(item.price*item.qty).toLocaleString()}</div>
+    </div>
+  `).join('');
+}
+
+function changeQty(i, d) {
+  cart[i].qty += d;
+  if (cart[i].qty <= 0) cart.splice(i,1);
+  updateCartUI();
+}
+function removeItem(i) { cart.splice(i,1); updateCartUI(); }
+
+function openCart() {
+  document.getElementById('cart-overlay').classList.add('open');
+  document.getElementById('cart-drawer').classList.add('open');
+}
+function closeCart() {
+  document.getElementById('cart-overlay').classList.remove('open');
+  document.getElementById('cart-drawer').classList.remove('open');
+}
+
+document.getElementById('cart-open-btn').addEventListener('click', openCart);
+document.getElementById('cart-close-btn').addEventListener('click', closeCart);
+document.getElementById('cart-close-btn2').addEventListener('click', closeCart);
+document.getElementById('cart-overlay').addEventListener('click', closeCart);
+
+// Checkout
+function openCheckout() {
+  closeCart();
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const shipping = total >= 20000 ? 0 : 500;
+  document.getElementById('co-order-summary').innerHTML = `
+    ${cart.map(i=>`<div class="order-line"><span class="order-line-label">${i.name} × ${i.qty}</span><span class="order-line-val">KES ${(i.price*i.qty).toLocaleString()}</span></div>`).join('')}
+    <hr class="order-divider">
+    <div class="order-line"><span class="order-line-label">Shipping</span><span class="order-line-val">${shipping===0?'Free':'KES '+shipping.toLocaleString()}</span></div>
+    <div class="order-line"><span class="order-total-label">Total</span><span class="order-total-val">KES ${(total+shipping).toLocaleString()}</span></div>
+  `;
+  document.getElementById('checkout-overlay').classList.add('open');
+}
+document.getElementById('open-checkout-btn').addEventListener('click', openCheckout);
+document.getElementById('co-close-btn').addEventListener('click', ()=>{
+  document.getElementById('checkout-overlay').classList.remove('open');
+  document.getElementById('checkout-form-view').style.display='block';
+  document.getElementById('success-screen').classList.remove('show');
+});
+document.getElementById('checkout-overlay').addEventListener('click', e=>{
+  if(e.target===document.getElementById('checkout-overlay')) {
+    document.getElementById('checkout-overlay').classList.remove('open');
+    document.getElementById('checkout-form-view').style.display='block';
+    document.getElementById('success-screen').classList.remove('show');
+  }
+});
+
+function switchTab(id, btn) {
+  document.querySelectorAll('.pay-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.pay-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+  document.getElementById('pay-submit-wrap').style.display = id==='paypal'?'none':'block';
+}
+
+function fmtCard(el) {
+  let v = el.value.replace(/\D/g,'').substring(0,16);
+  el.value = v.replace(/(.{4})/g,'$1 ').trim();
+}
+function fmtExp(el) {
+  let v = el.value.replace(/\D/g,'');
+  if(v.length>=2) v=v.substring(0,2)+' / '+v.substring(2,4);
+  el.value=v;
+}
+
+function placeOrder() {
+  const ref = '#MN-' + Math.floor(100000+Math.random()*900000);
+  document.getElementById('order-ref').textContent = ref;
+  document.getElementById('checkout-form-view').style.display='none';
+  document.getElementById('success-screen').classList.add('show');
+  cart = [];
+  updateCartUI();
+}
+
+function closeAll() {
+  document.getElementById('checkout-overlay').classList.remove('open');
+  document.getElementById('checkout-form-view').style.display='block';
+  document.getElementById('success-screen').classList.remove('show');
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('up'),i*70);obs.unobserve(e.target);}
+  });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
